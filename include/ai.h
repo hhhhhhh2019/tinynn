@@ -32,6 +32,7 @@ typedef struct {
 	unsigned int count;
 	Layer* layers;
 	float*** weights;
+	float*** gradients;
 
 	float (*activation)(float);
 	float (*derivative)(float);
@@ -41,7 +42,9 @@ typedef struct {
 void ai_init(AI*, unsigned int, unsigned int[]);
 void forward(AI*);
 void backward(AI*);
-void correct_weights(AI*, float);
+void clear_gradients(AI*);
+void count_gradients(AI*, float);
+void correct_weights(AI*);
 
 
 #endif // AI_H

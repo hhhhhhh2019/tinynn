@@ -21,8 +21,9 @@ int main() {
 		putc('\n', stderr);
 	}*/
 
-	for (int i = 0; i < 100000; i++) {
+	for (int i = 0; i < 10000; i++) {
 		float e = 0;
+		clear_gradients(&nn);
 
 		for (int j = 0; j < 4; j++) {
 			nn.layers[0].neurons[0] = j%2;
@@ -35,8 +36,10 @@ int main() {
 			e += nn.layers[nn.count-1].errors[0]*nn.layers[nn.count-1].errors[0];
 
 			backward(&nn);
-			correct_weights(&nn, 0.5);
+			count_gradients(&nn, 0.1);
 		}
+
+		correct_weights(&nn);
 
 		printf("%d %f\n", i, e/4);
 	}
