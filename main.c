@@ -36,10 +36,10 @@ int main() {
 			e += nn.layers[nn.count-1].errors[0]*nn.layers[nn.count-1].errors[0];
 
 			backward(&nn);
-			count_gradients(&nn, 0.1);
+			count_gradients(&nn, 0.5);
 		}
 
-		correct_weights(&nn);
+		correct_weights(&nn, 4);
 
 		printf("%d %f\n", i, e/4);
 	}

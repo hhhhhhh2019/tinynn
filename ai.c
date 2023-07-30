@@ -93,11 +93,11 @@ void count_gradients(AI* ai, float koof) {
 }
 
 
-void correct_weights(AI* ai) {
+void correct_weights(AI* ai, int count) {
 	for (int i = 0; i < ai->count-1; i++) {
 		for (int j = 0; j < ai->layers[i].count; j++) {
 			for (int k = 0; k < ai->layers[i+1].count; k++) {
-				ai->weights[i][j][k] += ai->gradients[i][j][k];
+				ai->weights[i][j][k] += ai->gradients[i][j][k] / (float)count;
 				//koof * ai->layers[i+1].errors[k] * (*ai->derivative)(ai->layers[i+1].neurons[k]) * ai->layers[i].neurons[j];
 			}
 		}

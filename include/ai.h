@@ -44,7 +44,7 @@ void forward(AI*);
 void backward(AI*);
 void clear_gradients(AI*);
 void count_gradients(AI*, float);
-void correct_weights(AI*);
+void correct_weights(AI*, int);
 
 
 #endif // AI_H
