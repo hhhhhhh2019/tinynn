@@ -1,5 +1,5 @@
-#ifndef AI_H
-#define AI_H
+#ifndef NN_H
+#define NN_H
 
 
 // ---------- WEIGHTS ----------
@@ -24,6 +24,8 @@
 typedef struct {
 	unsigned int count;
 	float* neurons;
+	float* biases;
+	float* biases_gradients;
 	float* errors;
 } Layer;
 
@@ -36,15 +38,20 @@ typedef struct {
 
 	float (*activation)(float);
 	float (*derivative)(float);
-} AI;
+} NN;
 
 
-void ai_init(AI*, unsigned int, unsigned int[]);
-void forward(AI*);
-void backward(AI*);
-void clear_gradients(AI*);
-void count_gradients(AI*, float);
-void correct_weights(AI*, int);
+void nn_init(NN*, unsigned int, unsigned int[]);
+void forward(NN*);
+
+void clear_gradients(NN*);
+void correct_weights(NN*, int);
+void correct_biases(NN*, int);
+
+void bp_backward(NN*);
+void bp_count_gradients(NN*, float);
+
+void rf_reward(NN*, float);
 
 
-#endif // AI_H
+#endif // NN_H

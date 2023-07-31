@@ -1,33 +1,16 @@
-LIBS = ''
+all: src examples
 
-CC_FLAGS = -I include -c
-LD_FLAGS = -lm
+mkdirs:
+	mkdir -p bin
 
-ifeq ($(strip $(LIBS)),)
-	CC_FLAGS += `pkg-config --cflags $(LIBS)`
-	LD_FALGS += `pkg-config --libs $(LIBS)`
-endif
+src: mkdirs
+	make -C src
 
-ifdef DEBUG
-	CC_FLAGS += -fsanitize=address -g -DDEBUG
-	LD_FLAGS += -fsanitize=address -g -lasan
-endif
-
-CC ?= gcc
-LD = $(CC)
-
-
-SOURCES = $(wildcard *.c)
-OBJECTS = $(SOURCES:.c=.o)
-
-
-
-%.o: %.c
-	$(CC) $(CC_FLAGS) $< -o $@
-
-all: $(OBJECTS)
-	$(LD) $^ $(LD_FLAGS) -o main
+examples: mkdirs
+	make -C examples
 
 
 clean:
-	rm *.o out.png main -rf
+	rm bin -rf
+	make -C examples clean
+	make -C src clean
