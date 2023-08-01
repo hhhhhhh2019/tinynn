@@ -107,7 +107,7 @@ void bp_backward(NN* nn) {
 			float err = 0;
 
 			for (int k = 0; k < nn->layers[i+1].count; k++)
-				err += nn->layers[i+1].errors[k] * nn->weights[i][j][k];
+				err += nn->layers[i+1].errors[k] * nn->weights[i][j][k] * (*nn->derivative)(nn->layers[i+1].neurons[k]);
 
 			nn->layers[i].errors[j] = err;
 		}
