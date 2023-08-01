@@ -119,7 +119,7 @@ void bp_count_gradients(NN* nn, float koof) {
 	for (int i = 0; i < nn->count-1; i++) {
 		for (int j = 0; j < nn->layers[i].count; j++) {
 			for (int k = 0; k < nn->layers[i+1].count; k++) {
-				nn->gradients[i][j][k] += koof * nn->layers[i+1].errors[k] * (*nn->derivative)(nn->layers[i+1].neurons[k]) * nn->layers[i].neurons[j];
+				nn->gradients[i][j][k] += koof * nn->layers[i+1].errors[k]*2 * (*nn->derivative)(nn->layers[i+1].neurons[k]) * nn->layers[i].neurons[j];
 			}
 		}
 	}
